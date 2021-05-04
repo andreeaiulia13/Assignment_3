@@ -16,26 +16,18 @@ class ProductsController < ApplicationController
     @product = Product.new
   end
 
-  def nil_params
-    product_params[:image].blank? || product_params[:description].blank? || product_params[:price].blank? || product_params[:title].blank?
-  end
-
   def create
-    unless (nil_params) then
-      product = Product.create!(product_params.except(:image))
-      product.image.attach(product_params[:image])
-      redirect_to dashboard_path
-    end
+    product = Product.create!(product_params.except(:image))
+    product.image.attach(product_params[:image])
+    redirect_to dashboard_path
   end
 
   def edit
   end
 
   def update
-    unless (product_params[:description].blank? || product_params[:title].blank? || product_params[:price].blank?) then
-      @product.update(product_params)
-      redirect_to dashboard_path
-    end
+   @product.update(product_params)
+   redirect_to dashboard_path
   end
 
   def destroy
