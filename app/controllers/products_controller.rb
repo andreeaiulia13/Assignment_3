@@ -14,7 +14,6 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
-    @products = Product.all
   end
 
   def nil_params
