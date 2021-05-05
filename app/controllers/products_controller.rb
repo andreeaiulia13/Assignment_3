@@ -17,21 +17,33 @@ class ProductsController < ApplicationController
   end
 
   def create
-    product = Product.create!(product_params.except(:image))
-    product.image.attach(product_params[:image])
-    redirect_to dashboard_path
+    begin
+      product = Product.create!(product_params.except(:image))
+      product.image.attach(product_params[:image])
+      
+      redirect_to dashboard_path
+    
+    rescue => exception
+      redirect_to new_error_product_path
+    end
   end
-
+  
   def edit
   end
 
+  def new_error
+    @product = Product.new
+  end
+
   def update
-   @product.update(product_params)
-   redirect_to dashboard_path
+    @product.update(product_params)
+   
+    redirect_to dashboard_path
   end
 
   def destroy
     @product.destroy
+    
     redirect_to dashboard_path
   end
   
